@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xsi:schemaLocation="www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/web-common_3_0.xsd"
+    version="3.1">
+    
+	<display-name>Euro 2016 Angular Demo App</display-name>
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
+
+
+	<servlet>
+		<servlet-name>jersey-servlet</servlet-name>
+		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+		<init-param>
+			<param-name>>org.codehaus.jackson.jaxrs</param-name>
+			<param-value>de.isnow.rest</param-value>
+		</init-param>
+		<init-param>
+			<param-name>javax.ws.rs.Application</param-name>
+			<param-value>de.isnow.WebApplication</param-value>
+		</init-param>
+		<init-param>
+			<param-name>jersey.config.server.provider.classnames</param-name>
+			<param-value>org.glassfish.jersey.media.multipart.MultiPartFeature</param-value>
+		</init-param>
+		<init-param>
+			<param-name>jersey.config.server.provider.classnames</param-name>
+			<param-value>
+	            org.glassfish.jersey.linking.DeclarativeLinkingFeature
+	        </param-value>
+		</init-param>
+		<init-param>
+			<param-name>jersey.config.server.tracing.type</param-name>
+			<param-value>ON_DEMAND</param-value>
+		</init-param>
+		<init-param>
+			<param-name>jersey.config.server.tracing.threshold</param-name>
+			<param-value>VERBOSE</param-value>
+		</init-param>
+		<init-param>
+			<param-name>jersey.config.server.provider.packages</param-name>
+			<param-value>io.swagger.jaxrs.listing,
+						de.isnow.rest
+			</param-value>
+		</init-param>
+	
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>jersey-servlet</servlet-name>
+		<url-pattern>/v1/*</url-pattern>
+	</servlet-mapping>
+	
+	 
+  <servlet>
+	<servlet-name>JerseyJaxrsConfig</servlet-name>
+	<servlet-class>io.swagger.jersey.config.JerseyJaxrsConfig</servlet-class>
+		<init-param>
+			<param-name>api.version</param-name>
+			<param-value>1.0.0</param-value>
+		</init-param>
+		<init-param>
+			<param-name>api.title</param-name>
+			<param-value>Euro 2016</param-value>
+		</init-param>
+		<init-param>
+			<param-name>swagger.api.basepath</param-name>
+			<param-value>/euro2016/v1</param-value>
+		</init-param>
+		<init-param>
+        	<param-name>jersey.config.server.tracing.type</param-name>
+        	<param-value>ALL</param-value>
+   		</init-param>
+   		<init-param>
+   			<param-name>scan.all.resources</param-name>
+   			<param-value>true</param-value>
+   		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	
+	<session-config>
+	 	<cookie-config>
+			<http-only>true</http-only>
+		</cookie-config>
+		<session-timeout>60</session-timeout>
+		<tracking-mode>COOKIE</tracking-mode>
+	</session-config>
+
+
+	
+	<!-- Define content to exclude from auth -> No auth-constraint means everybody has access! Define here static resources (which are at least required to see the login window) -->
+	<security-constraint>
+	  <web-resource-collection>
+	    <web-resource-name>Public</web-resource-name>
+	    <description>Matches a few special public folders and pages.</description>
+        <url-pattern>/*</url-pattern>
+	  </web-resource-collection>
+	  <!-- No auth-constraint means everybody has access! -->
+	</security-constraint>
+	
+	<!-- Default login configuration uses form-based authentication, see the REALM definition in META-INF/context.xml (LDAP directory) -->
+	<login-config>
+	   <auth-method>FORM</auth-method>
+	   <realm-name>Form-Based Authentication Area</realm-name>
+	   <form-login-config>
+	     <form-login-page>/login.html</form-login-page>
+	     <form-error-page>/loginerror.html</form-error-page>
+	   </form-login-config>
+	</login-config>
+	
+	
+	
+	 <error-page>
+		<error-code>500</error-code>
+		<location>/assets/templates/pages/error.html</location>
+	</error-page>
+</web-app>

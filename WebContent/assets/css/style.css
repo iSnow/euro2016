@@ -1,0 +1,17 @@
+.maincontent {
+	margin-top: 8em;
+}
+
+.dropdown-toggle {
+	cursor: pointer;
+}
+
+.navbar-header {
+	float: none;
+}
+
+@media (max-width: 991px ) {
+	.nav.navbar-nav>li {
+		float: none;
+	}
+}

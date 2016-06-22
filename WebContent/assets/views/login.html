@@ -1,0 +1,58 @@
+<!-- 
+	Login-page
+	This is the page template for the landing page
+	
+ -->
+ <script type="text/javascript">
+    	function createCookie(name, value, days) {
+    	    var expires;
+    	    if (days) {
+    	        var date = new Date();
+    	        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    	        expires = "; expires=" + date.toGMTString();
+    	    }
+    	    else {
+    	        expires = "";
+    	    }
+    	    document.cookie = name + "=" + value + expires + "; path=/";
+    	}
+	</script>
+<div class="maincontent-text">
+	<form method="POST" ng-submit="main.logIn()">
+    	<div class="modal-header">
+           	<h3>Log in</h3>
+       	</div>
+        <div class="modal-body">
+           	<p>
+			<input type="hidden" name="j_realm"  id="j_realm" value="DEFAULT"  ng-model="main.realm">
+			            	
+			<p class="input-group">
+ 					<span class="input-group-addon">User name</span>
+ 					<input type="text" class="form-control" name="j_username" ng-model="main.username">
+			</p>
+		
+			<p class="input-group">
+ 					<span class="input-group-addon">Password&nbsp;&nbsp;</span>
+ 					<input class="form-control" type="password" name="j_password" ng-model="main.password">
+			</p>
+
+			<!-- <p><b>User name:</b> <input type="text" name="j_username" class="form-control" ng-model="fields.username"></p> -->
+			<!-- <p><b>Password:</b> <input type="password" name="j_password" class="form-control"></p> -->
+			
+			<!-- 
+				Uncomment to use a select for project selection. Instead, 
+				comment out the hidden input above.
+			<p>
+				<select name="j_realm"  id="j_realm"  value="TOX" class="form-control">
+					<option value="TOX">Toxicology</option>
+					<option value="DUMMY">Dummy project</option>
+				</select>
+			</p>
+			-->
+       	</div>
+       	<div class="modal-footer">
+			<input class="btn btn-warning" type="reset" value="Reset">
+			<input type="submit" class="btn btn-primary" value="OK" onclick="createCookie('j_realm', $('#j_realm').val(), 1); return true;" />
+       	</div>
+	</form></div>
+

@@ -1,0 +1,29 @@
+<div ng-controller="TeamDetailsController as model">
+	<header id="overview" class="bs-header">
+		<h1>Team {{model.team.Team}}</h1>
+	</header>
+	
+	<div>
+		<p><b>Description: </b> {{model.team.Bio}}</p>
+		<p><b>Strengths: </b> {{model.team.strengths}}</p>
+		<p><b>Weaknesses: </b> {{model.team.weaknesses}}</p>
+	</div>
+	<div>
+		<table ng-table="model.tableParams" class="table" show-filter="true">
+		    <tr ng-repeat="row in $data">
+		        <td title="'name'" filter="{ name: 'text'}" sortable="'name'">
+		            {{row.name}}
+		        </td>
+		        <td title="'bio'" filter="{ bio: 'text'}" sortable="'biop'">
+		            {{row.bio}}
+		        </td>
+		        <td title="'league'" filter="{ 'league': 'text'}" sortable="'league'">
+		            {{row.league}}
+		        </td>
+		        <td title="'club'" filter="{ 'club': 'text'}" sortable="'club'">
+		            {{row.club}}
+		        </td>
+		    </tr>
+		</table>
+	</div>
+</div>

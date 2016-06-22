@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html >
+<head lang="en">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+	<meta charset="utf-8">
+	<title>Euro 2016 Playground</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-3.2.0.min.css" />
+	<link rel="stylesheet" type="text/css" href="assets/js/external/ng-table-master/dist/ng-table.css" />
+	<script type="text/javascript">
+    	function createCookie(name, value, days) {
+    	    var expires;
+    	    if (days) {
+    	        var date = new Date();
+    	        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    	        expires = "; expires=" + date.toGMTString();
+    	    }
+    	    else {
+    	        expires = "";
+    	    }
+    	    document.cookie = name + "=" + value + expires + "; path=/";
+    	}
+	</script>
+</head>
+<body ng-app="basf.myApp"
+		ng-controller="MainController as main">
+		<h1>error</h1>
+	<!-- 
+		Our module ng-header inserts the whole header block into the page HTML
+		and renders the navigation obtained as JSON from the backend
+		
+	-->
+	
+	<form method="POST" action="j_security_check">
+	    	<div class="modal-header">
+            	<h3>Log in</h3>
+        	</div>
+	        <div class="modal-body">
+            	<p>
+				<input type="hidden" name="j_realm"  id="j_realm" value="DEFAULT">
+				            	
+				<p class="input-group">
+  					<span class="input-group-addon">User name</span>
+  					<input type="text" class="form-control" name="j_username">
+				</p>
+			
+				<p class="input-group">
+  					<span class="input-group-addon">Password&nbsp;&nbsp;</span>
+  					<input class="form-control" type="password" name="j_password">
+				</p>
+
+				<!-- <p><b>User name:</b> <input type="text" name="j_username" class="form-control" ng-model="fields.username"></p> -->
+				<!-- <p><b>Password:</b> <input type="password" name="j_password" class="form-control"></p> -->
+				
+				<!-- 
+					Uncomment to use a select for project selection. Instead, 
+					comment out the hidden input above.
+				<p>
+					<select name="j_realm"  id="j_realm"  value="TOX" class="form-control">
+						<option value="TOX">Toxicology</option>
+						<option value="DUMMY">Dummy project</option>
+					</select>
+				</p>
+				-->
+        	</div>
+        	<div class="modal-footer">
+				<input class="btn btn-warning" type="reset" value="Reset">
+				<input type="submit" class="btn btn-primary" value="OK" onclick="createCookie('j_realm', $('#j_realm').val(), 1); return true;" />
+        	</div>
+		</form>
+	
+	<ng-login-dialog></ng-login-dialog>
+	<script type="text/ng-template" id="mtxlogin">
+
+		<!-- tomcat form based authentication (embedded in modal) -->
+		<!-- 
+			 * the <em>j_realm</em> parameter is set here as a hidden parameter (currently, 
+	 		 * it could be extended to be a HTML &lt;select&gt; control so the user can choose
+	 		 * into which project she wants to log in). 
+	 		 * On submit, j_realm parameter input's value is transferred to a cookie with the name 'j_realm'
+	 		 * and this cookie in turn is read in the Javascript <em>userService</em> in AngularJS.
+	 		 * The Javascript userService gets called from ng-header to retrieve information about
+	 		 * the user from the backend. 
+	 
+	 		 * in UserService.java is the backend function that answers to the Javascript userService call. Its 
+	 		 * <em>realm</em> parameter comes from the cookie as described above.	 
+		-->
+		<form method="POST" action="j_security_check">
+	    	<div class="modal-header">
+            	<h3>Log in</h3>
+        	</div>
+	        <div class="modal-body">
+            	<p>
+				<input type="hidden" name="j_realm"  id="j_realm" value="TOX">
+				You are entering the TOX project database. Remember, that these data are strictly confidential!<br/>
+				<p><input id="field_terms" type="checkbox" required name="field_terms" onchange="this.setCustomValidity(validity.valueMissing ? 'Please indicate that you accept the Terms of Use.' : '');"> <label for="field_terms">I accept the Terms of Use.</label></p>			
+            	
+				<p class="input-group">
+  					<span class="input-group-addon">User name</span>
+  					<input type="text" class="form-control" name="j_username" ng-model="fields.username">
+				</p>
+			
+				<p class="input-group">
+  					<span class="input-group-addon">Password&nbsp;&nbsp;</span>
+  					<input class="form-control" type="password" name="j_password">
+				</p>
+
+				<!-- <p><b>User name:</b> <input type="text" name="j_username" class="form-control" ng-model="fields.username"></p> -->
+				<!-- <p><b>Password:</b> <input type="password" name="j_password" class="form-control"></p> -->
+				
+				<!-- 
+					Uncomment to use a select for project selection. Instead, 
+					comment out the hidden input above.
+				<p>
+					<select name="j_realm"  id="j_realm"  value="TOX" class="form-control">
+						<option value="TOX">Toxicology</option>
+						<option value="DUMMY">Dummy project</option>
+					</select>
+				</p>
+				-->
+        	</div>
+        	<div class="modal-footer">
+				<input class="btn btn-warning" type="reset" value="Reset">
+				<input type="submit" class="btn btn-primary" value="OK" onclick="createCookie('j_realm', $('#j_realm').val(), 1); return true;" />
+        	</div>
+		</form>
+		<script type="text/javascript"> document.getElementById("field_terms").setCustomValidity("Please indicate that you accept the Terms of Use."); </script>	
+	</script>
+	
+
+	<!-- 
+		<p><b>Password:</b> <input type="password" name="j_password" class="form-control"  ng-keydown="keydown($event)"></p>
+		Some script use "defer" and "async" to load them non-blocking. This only works if the 
+		start page does not need to run them. If you modify the start page to load resources,
+		you need to remove some of the "defer" and "async" attributes
+	-->
+	<!-- Javascript Dependencies -->
+	<script type="text/javascript" src="assets/js/external/jquery-2.2.4.min.js"></script> 
+	<script type="text/javascript" src="assets/js/external/lodash-4.13.1.min.js"></script> 
+	<script type="text/javascript" src="assets/js/external/angular-1.5.6/angular.js"></script>
+	<script type="text/javascript" src="assets/js/external/angular-1.5.6/angular-resource.js"></script>
+	<script type="text/javascript" src="assets/js/external/angular-1.5.6/angular-route.js"></script>
+	<script type="text/javascript" src="assets/js/external/ui-bootstrap/ui-bootstrap-tpls-1.1.0.js"></script> 	
+	<script type="text/javascript" src="assets/js/external/ng-table-master/dist/ng-table.js" /></script> 	
+
+	<!-- Own Javascript code -->	
+	<script type="text/javascript" src="assets/js/myApp.js"></script>
+	<script type="text/javascript" src="assets/js/routes.js"></script>
+	<script type="text/javascript" src="assets/js/services/resources.js"></script>
+	<script type="text/javascript" src="assets/js/services/users.js"></script>
+	<script type="text/javascript" src="assets/js/services/timeout.js"></script>
+	<script type="text/javascript" src="assets/js/controllers/maincontroller.js"></script>
+	
+</body>
+</html>

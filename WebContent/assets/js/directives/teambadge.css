@@ -1,0 +1,7 @@
+teambadge>div {
+	padding: 0.5em 3em 1em 3em;
+	border-radius: 6px;
+    margin-top: 24px;
+    background: #f8f8fa;
+    border: 1px solid #f0f0f0;
+}

@@ -1,0 +1,13 @@
+<header id="overview" class="bs-header">
+	<h1>Teams</h1>
+	<p>List of all teams in the Euro 2016.</p>
+</header>
+
+<div ng-controller="TeamsController as model">
+	
+	<ul style="list-style: none;">
+		<li ng-repeat="t in model.teams track by $index">
+			<teambadge team="t"></teambadge>
+		</li>
+	</ul>
+</div>

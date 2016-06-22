@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html >
+<head lang="en">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+	<meta charset="utf-8">
+	<title>Euro 2016 Playground</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-3.2.0.min.css" />
+	<link rel="stylesheet" type="text/css" href="assets/js/external/ng-table-master/dist/ng-table.css" />
+	<link rel="stylesheet" type="text/css" href="assets/js/directives/teambadge.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+</head>
+
+<body 
+	ng-app="basf.myApp" 
+	ng-controller="MainController as main">	
+
+	<header class="navbar navbar-default navbar-fixed-top navbar-inner">
+    <div class="container">
+        <div class="navbar-header" >
+            <button type="button" class="navbar-toggle visible-xs visible-sm " data-toggle="collapse" ng-click="isCollapsed = !isCollapsed">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand visible-sm visible-xs " href="#">Euro 2016</a>
+        </div>
+        <nav class="hidden-sm hidden-xs">
+            <ul class="nav navbar-nav">
+                <li><a href="#top" role="button" class="navbar-brand">
+                    Euro 2016
+                </a>
+                </li>
+                <li><a href="#teams">Teams</a></li>
+                <li class="dropdown" uib-dropdown>
+                    <a role="button" class="dropdown-toggle" uib-dropdown-toggle aria-haspopup="true" aria-expanded="false">
+                        Team Details <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="team in main.teams track by $index"><a href="#team/{{::team.Team}}">{{team.Team}}</a></li>
+                    </ul>
+                </li>
+                <li><a href="/euro2016/swagger/">Swagger</a></li>
+                
+            </ul>
+        </nav>
+        <nav class="visible-xs visible-sm collapse" uib-collapse="!isCollapsed" style="height: 0px; overflow: hidden">
+            <ul class="nav navbar-nav">
+                <li><a href="#teams" ng-click="isCollapsed = !isCollapsed">Getting started</a></li>
+                <li style="right: -0.5em;">&nbsp;&nbsp;Team Details</li>
+                <li ng-repeat="team in main.teams track by $index"><a href="#team/{{::team.Team}}" ng-click="isCollapsed = !isCollapsed">&nbsp;&nbsp;&nbsp;&nbsp;{{team.Team}}</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+    <div role="main" id="maincontent" class="container maincontent">
+        <!-- this is where our content for different pages will be injected -->
+        <div 
+        	ng-view 
+        	onload="main.onViewChange()"></div>
+        	
+        <p>
+            {{main.userinfo.name}}&nbsp;&nbsp;&nbsp; <a href="#" ng-click="main.logOut()" title="Logout">Logout</a>
+        </p>
+    </div>
+	
+	<!-- Javascript Dependencies -->
+	<script type="text/javascript" src="assets/js/external/jquery-2.2.4.min.js"></script> 
+	<script type="text/javascript" src="assets/js/external/lodash-4.13.1.min.js"></script> 
+	<script type="text/javascript" src="assets/js/external/angular-1.5.6/angular.js"></script>
+	<script type="text/javascript" src="assets/js/external/angular-1.5.6/angular-resource.js"></script>
+	<script type="text/javascript" src="assets/js/external/angular-1.5.6/angular-route.js"></script>
+	<script type="text/javascript" src="assets/js/external/ui-bootstrap/ui-bootstrap-tpls-1.1.0.js"></script> 	
+	<script type="text/javascript" src="assets/js/external/ng-table-master/dist/ng-table.js" /></script> 	
+
+	<!-- Own Javascript code -->	
+	<script type="text/javascript" src="assets/js/myApp.js"></script>
+	<script type="text/javascript" src="assets/js/routes.js"></script>
+	<script type="text/javascript" src="assets/js/services/resources.js"></script>
+	<script type="text/javascript" src="assets/js/services/users.js"></script>
+	<script type="text/javascript" src="assets/js/services/timeout.js"></script>
+	<script type="text/javascript" src="assets/js/filters.js"></script>
+	
+	<!-- Controller code -->
+	<script type="text/javascript" src="assets/js/controllers/maincontroller.js"></script>
+	<script type="text/javascript" src="assets/js/controllers/teamscontroller.js"></script>
+	<script type="text/javascript" src="assets/js/controllers/teamdetailscontroller.js"></script>
+	
+	<!-- Directives code -->
+	<script type="text/javascript" src="assets/js/directives/teambadge.js"></script>
+</body>
+</html>

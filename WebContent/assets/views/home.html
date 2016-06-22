@@ -1,0 +1,33 @@
+
+
+<!-- 
+	This is the page template for the landing page	
+ -->
+ 
+ <header id="overview" class="bs-header">
+	<h1>Teams</h1>
+	<p>List of all teams in the Euro 2016.</p>
+</header>
+
+
+<div ng-controller="TeamsController as model">
+	
+	<table ng-table="model.tableParams" class="table" show-filter="true">
+	    <tr ng-repeat="row in $data">
+	        <td title="'Name'" filter="{ Team: 'text'}" sortable="'Team'">
+	            <a href="#/team/{{::row.Team}}">{{row.Team}}</a>
+	        </td>
+	        <td title="'Group'" filter="{ Group: 'text'}" sortable="'Group'">
+	            {{row.Group}}
+	        </td>
+	         <td title="'Players'" filter="{ 'players': 'text'}" sortable="'players'">
+	            {{row.players | arrayDisplay:'name'}} 
+	        </td>
+	        <td title="'FIFA ranking'" filter="{ 'FIFA ranking': 'number'}" sortable="'FIFA ranking'">
+	            {{row['FIFA ranking']}}
+	        </td>
+	    </tr>
+	</table>
+
+</div>
+
